@@ -90,3 +90,6 @@ ENV/
 
 # swp files
 *.swp
+
+# Database
+db.sqlite3
