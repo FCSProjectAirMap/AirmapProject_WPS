@@ -1,0 +1,14 @@
+language: python
+python:
+    - "3.4"
+    - "3.5"
+addons:
+    - postgresql: '9.3'
+install:
+    - pip install -r requirements/development.txt
+before_script:
+    - psql -c 'CREATE DATABASE airmap;' -U postgres
+script:
+    - pep8 .
+notifications:
+  slack: fcschoolproj1:ggFIp6piNmez4HLy2ws3S5ls
