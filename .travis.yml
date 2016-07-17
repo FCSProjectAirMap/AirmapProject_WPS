@@ -11,4 +11,4 @@ before_script:
 script:
     - pep8 .
 notifications:
-  slack: fcschoolproj1:ggFIp6piNmez4HLy2ws3S5ls
+  slack: fcschoolproj1:uX1BZXFnyRXFLzXOM16sTf95
