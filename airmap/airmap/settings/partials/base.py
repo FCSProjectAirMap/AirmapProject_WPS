@@ -29,7 +29,7 @@ INSTALLED_APPS = [
 
     'users',
 
-    'rest-framework',
+    'rest_framework',
 
     ]
 
