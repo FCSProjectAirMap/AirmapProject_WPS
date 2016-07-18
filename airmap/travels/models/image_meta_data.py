@@ -28,3 +28,8 @@ class ImageMetaData(models.Model):
     )
     creation_date = models.DateTimeField()
     timezone_date = models.DateTimeField()
+
+    def get_image_url(self):
+        if self.image:
+            return self.image.url
+        return "other url"
