@@ -10,8 +10,9 @@ STATIC_URL = '/static/'
 
 
 # Media files
-MIDIA_ROOT = os.path.join(
+MEDIA_ROOT = os.path.join(
     PROJECT_ROOT_DIR,
     "dist",
     "media",
 )
+MEDIA_URL = '/media/'
