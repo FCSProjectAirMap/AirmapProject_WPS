@@ -10,3 +10,6 @@ class Travel(models.Model):
     travel_title = models.CharField(
         max_length=256,
     )
+
+    def __str__(self):
+        return self.travel_title

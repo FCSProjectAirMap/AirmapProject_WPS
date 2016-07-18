@@ -30,7 +30,7 @@ INSTALLED_APPS = [
     'users',
     'travels',
 
-    'rest-framework',
+    'rest_framework',
 ]
 
 MIDDLEWARE_CLASSES = [
