@@ -2,12 +2,17 @@ from django.contrib.auth import get_user_model, authenticate
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 from django.views.generic import View
+from django.shortcuts import render
 
 
 class SignupView(View):
 
     def get(self, request, *args, **kwargs):
-        pass
+        return render(
+            request,
+            "signup.html",
+            context={},
+        )
 
     def post(self, request, *args, **kwargs):
         email = request.POST.get("email")
