@@ -1,3 +1,6 @@
 django==1.9.7
 dj-database-url
 psycopg2
+djangorestframework
+djangorestframework-jwt
+Pillow
