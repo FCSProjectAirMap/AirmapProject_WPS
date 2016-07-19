@@ -31,7 +31,7 @@ INSTALLED_APPS = [
     'travels',
 
     'rest_framework',
-]
+    ]
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
