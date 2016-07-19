@@ -12,4 +12,5 @@ urlpatterns = [
     url(r'^api/signup/', SignupApi.as_view(), name='signup'),
     url(r'^api/login/', obtain_jwt_token),
     url(r'^api/travel/list/', TravelListAPIView.as_view(), name='travel_list'),
+    url(r'^api/travel/detail/(?P<id>\d+)/', TravelDetailAPIView.as_view(), name='travel_detail'),
     ]
