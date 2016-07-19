@@ -8,11 +8,17 @@ from django.views.generic import View
 class LoginView(View):
 
     def get(self, request, *args, **kwargs):
-        pass
+        return render(
+            request,
+            "login.html",
+            context={},
+        )
 
     def post(self, request, *args, **kwargs):
         email = request.POST.get("email")
         password = request.POST.get("password")
+
+        next_url = request.POST.get("next_url") or reverse("users:login")  # FIXME: redirect to home
 
         user = authenicate(
             email=email,
@@ -21,6 +27,7 @@ class LoginView(View):
 
         if user:
             login(request, user)
-            pass
 
-        pass
+            return redirect(next_url)
+
+        return redirect(reverse("login"))
