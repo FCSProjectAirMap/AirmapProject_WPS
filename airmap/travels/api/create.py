@@ -19,7 +19,7 @@ class TravelCreateAPIView(APIView):
         image_metadatas = request.data.get("image_metadatas")
 
         for image_metadata in image_metadatas:
-            creation_data = image_metadata.get("creation_data")
+            creation_date = image_metadata.get("creation_date")
             latitude = image_metadata.get("latitude")
             longitude = image_metadata.get("longitude")
             timestamp = image_metadata.get("timesstamp")
@@ -33,7 +33,7 @@ class TravelCreateAPIView(APIView):
             city = address_list[-2]
 
             metadata = request.travel.imagemetadata_set.create(
-                creation_data=creation_data,
+                creation_date=creation_date,
                 latitude=latitude,
                 longitude=longitude,
                 country=country,
