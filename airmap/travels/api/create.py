@@ -25,7 +25,7 @@ class TravelCreateAPIView(APIView):
             timestamp = image_metadata.get("timesstamp")
             image = image_metadata.get("image")
 
-            location = geolocator.reverse("{latitude}, {longitude}".format(latitude=latitud, longitude=longitude))
+            location = geolocator.reverse("{latitude}, {longitude}".format(latitude=latitude, longitude=longitude))
             point = location[0]
             address = point.address
             address_list = address.split(",")
