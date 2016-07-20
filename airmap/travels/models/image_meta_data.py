@@ -23,6 +23,10 @@ class ImageMetaData(models.Model):
         blank=True,
         null=True,
     )
+    imagedata = models.BinaryField(
+        blank=True,
+        null=True,
+    )
     timestamp = models.CharField(
         max_length=256,
     )
