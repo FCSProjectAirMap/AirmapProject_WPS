@@ -26,7 +26,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-]
+
+    'users',
+
+    'rest_framework',
+
+    ]
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
@@ -44,7 +49,9 @@ ROOT_URLCONF = 'airmap.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, "airmap", "templates"),
+         ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
