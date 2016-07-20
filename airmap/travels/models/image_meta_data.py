@@ -24,7 +24,7 @@ class ImageMetaData(models.Model):
         null=True,
     )
     imagedata = models.BinaryField(
-        blank=Ture,
+        blank=True,
         null=True,
     )
     timestamp = models.CharField(
