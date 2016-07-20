@@ -1,8 +1,9 @@
 from django.contrib.auth import get_user_model, authenticate
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
+from django.core.urlresolvers import reverse
 from django.views.generic import View
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 
 class SignupView(View):
@@ -23,14 +24,9 @@ class SignupView(View):
         except ValidationError:
             pass
 
-        user = authenticate(
-                email=email,
-                password=password
-                )
+        user = get_user_model().objects.create_user(
+            email=email,
+            password=password,
+        )
 
-        if not user:
-            user = get_user_model().objects.create_user(
-                    email=email,
-                    password=password,
-                    )
-            pass
+        return redirect(reverse("login"))
