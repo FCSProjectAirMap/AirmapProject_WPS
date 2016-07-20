@@ -1,7 +1,7 @@
 from django.contrib.auth import logout
 from django.core.urlresolvers import reverse
-from django.chortcuts import redirect
-from django.views.generic import views
+from django.shortcuts import redirect
+from django.views.generic import View
 
 
 class LogoutView(View):
