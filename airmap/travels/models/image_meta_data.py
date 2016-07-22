@@ -1,11 +1,13 @@
 from django.db import models
 
-from .travel import Travel
+from users.models import User
 
 
-class ImageMetaData(models.Model):
+class TravelImageMetaData(models.Model):
 
-    travel = models.ForeignKey(Travel)
+    user = models.ForeignKey(User)
+    travel = models.ForeignKey("Travel")
+    image = models.OneToOneField("TravelImage")
 
     latitude = models.CharField(
         max_length=256,
@@ -19,17 +21,23 @@ class ImageMetaData(models.Model):
     city = models.CharField(
         max_length=256,
     )
-    image = models.ImageField(
-        blank=True,
-        null=True,
-    )
     timestamp = models.CharField(
         max_length=256,
     )
-    creation_date = models.DateTimeField()
-    timezone_date = models.DateTimeField()
 
-    def get_image_url(self):
-        if self.image:
-            return self.image.url
-        return "other url"
+    create_date = models.TextField()
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def get_local_time(self):
+        from travels.utils.timestamp import get_local_time\
+            as get_local_time_timestamp
+        return get_local_time_timestamp(self.latitude, self.longitude, self.timestamp)
+    local_time = property(get_local_time)
+
+    def get_location(self):
+        from travels.utils.location import get_location\
+            as get_location_data
+        return get_location_data(self.latitude, self.longitude)
+    location = property(get_location)
