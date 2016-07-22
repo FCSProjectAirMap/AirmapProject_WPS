@@ -9,6 +9,7 @@ class Travel(models.Model):
 
     travel_title = models.CharField(
         max_length=256,
+        unique=True,
     )
 
     def __str__(self):
