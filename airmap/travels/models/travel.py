@@ -9,6 +9,11 @@ class Travel(models.Model):
 
     travel_title = models.CharField(
         max_length=256,
+        unique=True,
+    )
+
+    active = models.BooleanField(
+        default=False,
     )
 
     def __str__(self):

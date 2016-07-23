@@ -2,7 +2,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 
-from geopy.geocoders import GoogleV3
+from travels.utils import MakeLocalData
 
 
 class TravelCreateAPIView(APIView):
@@ -11,26 +11,24 @@ class TravelCreateAPIView(APIView):
 
         travel_title = request.data.get("travel_title")
         travel = request.user.travel_set.create(
-            travel_title=travel_title
+            travel_title=Travel_title
         )
 
-        geolocator = GoogleV3(api_key="GOOGLEV3_API_KEY")
 
-        image_metadatas = request.data.get("image_metadatas")
+class ImageMetadataCreateAPIView(APIView, MakeLocalData):
+
+    def post(self, request, *args, **kwargs):
+
+        imgae_metadatas = request.data.get("image_metadatas")
 
         for image_metadata in image_metadatas:
             creation_date = image_metadata.get("creation_date")
+            timestamp = image_metadata.get("timesstamp")
             latitude = image_metadata.get("latitude")
             longitude = image_metadata.get("longitude")
-            timestamp = image_metadata.get("timesstamp")
-            image = image_metadata.get("image")
 
-            location = geolocator.reverse("{latitude}, {longitude}".format(latitude=latitude, longitude=longitude))
-            point = location[0]
-            address = point.address
-            address_list = address.split(",")
-            country = address_list[-1]
-            city = address_list[-2]
+            country = get_location(latitude, longitude)["country"]
+            city = get_location(latitude, longtitude)["city"]
 
             metadata = request.travel.imagemetadata_set.create(
                 creation_date=creation_date,
@@ -39,9 +37,19 @@ class TravelCreateAPIView(APIView):
                 country=country,
                 city=city,
                 timestamp=timestamp,
-                image=image,
             )
 
         return Response(
                 status=status.HTTP_200_OK,
                 )
+
+
+class ImageDataCreateAPIView(APIView):
+
+    def post(self, request, *args, **kwargs):
+
+        image = request.FILES.get("image")
+
+        travel_image = request.imagemetadata.imagedata_set.create(
+                travel_image=image,
+            )
