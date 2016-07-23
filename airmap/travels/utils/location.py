@@ -1,25 +1,27 @@
-import os
+from django.conf import settings
 
 from geopy.geocoders import GoogleV3
 
 
-def get_location(latitude, longitude):
+class MakeLocalData(GoogleV3):
 
-    geolocator = GoogleV3(api_key=os.environ.get("GOOGLE_API_KEY"))
+    def get_location(latitude, longitude):
 
-    location = geolocator.reverse("{latitude}, {longitude}".format(
-        latitude=latitude,
-        longitude=longitude,
-    ))
+        geolocator = GoogleV3(api_key=os.environ.get("GOOGLE_API_KEY"))
 
-    address = location[0].address
-    address_list = address.split(",")
-    country = address_list[-1]
-    city = address_list[-2]
+        location = geolocator.reverse("{latitude}, {longitude}".format(
+            latitude=latitude,
+            longitude=longitude,
+        ))
 
-    result = {
-        "country": country,
-        "city": city,
-    }
+        address = location[0].address
+        address_list = address.split(",")
+        country = address_list[-1]
+        city = address_list[-2]
 
-    return result
+        result = {
+            "country": country,
+            "city": city,
+        }
+
+        return result
