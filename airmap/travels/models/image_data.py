@@ -24,12 +24,18 @@ class TravelImageData(models.Model):
         max_length=256,
     )
 
+    create_date = models.CharField(
+        max_length=256,
+    )
+
+    travel_image_name = models.CharField(
+        max_length=256,
+    )
+
     travel_image = models.ImageField(
         blank=True,
         null=True,
     )
-
-    create_date = models.TextField()
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
