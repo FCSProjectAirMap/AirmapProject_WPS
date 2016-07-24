@@ -36,7 +36,7 @@ class TravelDataCreateAPIView(APIView):
             city = address.get("city")
             local_date = get_local_time(latitude_data, longitude_data, timestamp_data)
 
-            image_name = timestamp_data + ".jpg"
+            image_name = timestamp_data + ".jpeg"
 
             metadata = travel.travelimagedata_set.create(
                 user=request.user,
@@ -47,6 +47,6 @@ class TravelDataCreateAPIView(APIView):
                 travel_image_name=image_name,
             )
 
-            return Response(
-                status=status.HTTP_200_OK,
-            )
+        return Response(
+            status=status.HTTP_200_OK,
+        )
