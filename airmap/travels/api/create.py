@@ -50,3 +50,20 @@ class TravelDataCreateAPIView(APIView):
         return Response(
             status=status.HTTP_200_OK,
         )
+
+
+class TravelImageCreateAPIView(APIView):
+
+    def post(self, request, *args, **kwargs):
+
+        image = request.FILE.get("image")
+
+        travel_image = request.user.travelimagedata_set.get(travel_image_name=request.FILE.get("filename"))
+
+        image_upload = travel_image.create(
+            image=image,
+        )
+
+        return Response(
+            status=status.HTTP_200_OK,
+        )
