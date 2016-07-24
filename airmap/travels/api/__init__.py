@@ -1,3 +1,3 @@
 from .list import TravelListAPIView
 from .detail import TravelDetailAPIView
-from .create import TravelDataCreateAPIView
+from .create import TravelDataCreateAPIView, TravelImageCreateAPIView
