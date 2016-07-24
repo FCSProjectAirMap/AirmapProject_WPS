@@ -30,6 +30,7 @@ class TravelImageData(models.Model):
 
     travel_image_name = models.CharField(
         max_length=256,
+        unique=True,
     )
 
     travel_image = models.ImageField(
