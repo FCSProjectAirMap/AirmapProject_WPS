@@ -12,9 +12,5 @@ class Travel(models.Model):
         unique=True,
     )
 
-    active = models.BooleanField(
-        default=False,
-    )
-
     def __str__(self):
         return self.travel_title
