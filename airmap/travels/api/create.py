@@ -12,13 +12,12 @@ class TravelDataCreateAPIView(APIView):
 
         travel_title = request.data.get("travel_title")
 
-        if travel_title in [
-            travel_class.get("travel_title")
-            for travel_class
-            in request.user.travel_set.values()
-        ]:
-            travel = request.user.travel_set.get(
-                travel_title=travel_title)
+        travel = request.user.travel_set.get(
+            travel_title=travel_title
+        )
+
+        if travel:
+            pass
         else:
             travel = request.user.travel_set.create(
                 travel_title=travel_title,
@@ -27,23 +26,24 @@ class TravelDataCreateAPIView(APIView):
         image_metadatas = request.data.get("image_metadatas")
 
         for image_metadata in image_metadatas:
-            timestamp_data = image_metadata.get("timestamp")
-            latitude_data = image_metadata.get("latitude")
-            longitude_data = image_metadata.get("longitude")
+            timestamp = image_metadata.get("timestamp")
+            latitude = image_metadata.get("latitude")
+            longitude = image_metadata.get("longitude")
 
-            address = get_location(latitude_data, longitude_data)
+            address = get_location(latitude, longitude)
             country = address.get("country")
             city = address.get("city")
-            local_date = get_local_time(latitude_data, longitude_data, timestamp_data)
 
-            image_name = timestamp_data + ".jpeg"
+            created_date = get_local_time(latitude, longitude, timestamp)
+
+            image_name = timestamp + ".jpeg"
 
             metadata = travel.travelimagedata_set.create(
                 user=request.user,
-                latitude=latitude_data,
-                longitude=longitude_data,
-                timestamp=timestamp_data,
-                create_date=local_date,
+                latitude=latitude,
+                longitude=longitude,
+                timestamp=timestamp,
+                create_date=created_date,
                 travel_image_name=image_name,
             )
 
