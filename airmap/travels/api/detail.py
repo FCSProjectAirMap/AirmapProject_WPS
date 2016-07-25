@@ -10,5 +10,5 @@ class TravelDetailAPIView(ListAPIView):
         self.request.user.save()
         travel = self.request.user.travel_set.get(id=self.kwargs.get("id"))
 
-        return travel.travelimagedata_set.all().order_by("timestamp")
+        return travel.travelimagedata_set.all().order_by("created_date")
     serializer_class = TravelDetailSerializer

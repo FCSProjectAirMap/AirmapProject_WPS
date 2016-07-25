@@ -56,14 +56,13 @@ class TravelImageCreateAPIView(APIView):
 
     def post(self, request, *args, **kwargs):
 
-        image = request.FILE.get("image")
+        image = request.FILES.get("image")
 
-        travel_image = request.user.travelimagedata_set.get(travel_image_name=request.FILE.get("filename"))
+        travel_image = request.user.travelimagedata_set.get(travel_image_name=image.name)
 
-        image_upload = travel_image.create(
-            image=image,
-        )
+        travel_image.image = image
 
+        travel_image.save()
         return Response(
             status=status.HTTP_200_OK,
         )
