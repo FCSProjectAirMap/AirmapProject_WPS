@@ -43,7 +43,7 @@ class TravelDataCreateAPIView(APIView):
                 latitude=latitude,
                 longitude=longitude,
                 timestamp=timestamp,
-                create_date=created_date,
+                created_date=created_date,
                 travel_image_name=image_name,
             )
 
