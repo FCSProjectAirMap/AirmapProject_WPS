@@ -6,11 +6,11 @@ import requests
 
 def get_local_time(latitude, longitude, timestamp):
 
-    url = "https://maps.googleapis.com/maps/api/timezone/json?location={latitude_data},\
-            {longitude_data}&timestamp={timestamp_data}&key={api_key}".format(
-        latitude_data=latitude,
-        longitude_data=longitude,
-        timestamp_data=timestamp,
+    url = "https://maps.googleapis.com/maps/api/timezone/json?location={latitude},\
+            {longitude}&timestamp={timestamp}&key={api_key}".format(
+        latitude=latitude,
+        longitude=longitude,
+        timestamp=timestamp,
         api_key=os.environ.get("GOOGLE_API_KEY"),
     )
 
