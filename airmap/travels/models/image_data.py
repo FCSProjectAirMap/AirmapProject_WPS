@@ -1,6 +1,29 @@
+import datetime
+import os
+
 from django.db import models
 
 from users.models import User
+
+
+def set_filename(now, instance, filename):
+    return "{username}_{date}_{microsecond}{extension}".format(
+        username=instance.user.email.split("@")[0],
+        date=str(now.date()),
+        microsecond=now.microsecond,
+        extension=os.path.splitext(filename)[1],
+    )
+
+
+def user_directory_path(instance, filename):
+    now = datetime.datetime.now()
+
+    path = "image/{username}/{filename}".format(
+        username=instance.user.email.split("@")[0],
+        filename=set_filename(now, instance, filename),
+    )
+
+    return path
 
 
 class TravelImageData(models.Model):
@@ -36,6 +59,7 @@ class TravelImageData(models.Model):
     travel_image = models.ImageField(
         blank=True,
         null=True,
+        upload_to=user_directory_path,
     )
 
     created_at = models.DateTimeField(auto_now_add=True)
