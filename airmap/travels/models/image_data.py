@@ -47,7 +47,7 @@ class TravelImageData(models.Model):
         max_length=256,
     )
 
-    create_date = models.CharField(
+    created_date = models.CharField(
         max_length=256,
     )
 
