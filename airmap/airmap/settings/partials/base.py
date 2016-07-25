@@ -29,6 +29,7 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'pipeline',
+    'raven.contrib.django.raven_compat',
 
     'users',
     'travels',
