@@ -7,11 +7,10 @@ class TravelDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = TravelImageData
         fields = [
-                "creation_data",
+                "create_date",
                 "latitude",
                 "longitude",
                 "country",
                 "city",
                 "timestamp",
-                "image",
                 ]
