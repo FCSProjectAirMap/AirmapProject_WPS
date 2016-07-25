@@ -31,5 +31,11 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     USERNAME_FIELD = 'email'
 
+    active_travel = models.CharField(
+       max_length=16,
+       blank=True,
+       null=True,
+    )
+
     def __str__(self):
         return self.email

@@ -6,6 +6,9 @@ from travels.serializers import TravelDetailSerializer
 class TravelDetailAPIView(ListAPIView):
 
     def get_queryset(self):
+        self.request.user.active_travel = self.kwargs.get("id")
+        self.request.user.save()
         travel = self.request.user.travel_set.get(id=self.kwargs.get("id"))
-        return travel.imagemetadata_set.all().order_by("creation_data")
+
+        return travel.travelimagedata_set.all().order_by("timestamp")
     serializer_class = TravelDetailSerializer
