@@ -12,9 +12,11 @@ class TravelDataCreateAPIView(APIView):
 
         travel_title = request.data.get("travel_title")
 
-        travel = request.user.travel_set.get(
-            travel_title=travel_title
-        )
+        travel_title_list = [
+            travel_class.get("travel_title")
+            for travel_class
+            in request.user.travel_set.values()
+        ]
 
         if travel:
             pass
@@ -24,6 +26,7 @@ class TravelDataCreateAPIView(APIView):
             )
 
         image_metadatas = request.data.get("image_metadatas")
+        username = request.user.email.split("@")
 
         for image_metadata in image_metadatas:
             timestamp = image_metadata.get("timestamp")
@@ -36,7 +39,7 @@ class TravelDataCreateAPIView(APIView):
 
             created_date = get_local_time(latitude, longitude, timestamp)
 
-            image_name = timestamp + ".jpeg"
+            image_name = username[0] + "_" + travel_title + "_" + timestamp + ".jpeg"
 
             metadata = travel.travelimagedata_set.create(
                 user=request.user,
@@ -56,7 +59,7 @@ class TravelImageCreateAPIView(APIView):
 
     def post(self, request, *args, **kwargs):
 
-        image = request.FILES.get("image")
+        image = request.FILES.get("image_data")
 
         travel_image = request.user.travelimagedata_set.get(travel_image_name=image.name)
 
