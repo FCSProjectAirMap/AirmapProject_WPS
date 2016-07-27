@@ -13,21 +13,22 @@ class TravelCreateAPIView(APIView):
         travel_title = request.data.get("travel_title")
         user = request.user
 
-        if travel_title:
-            user.travel_set.create(
-                travel_title=travel_title,
-            )
-            return Response(
-                data={
-                    "travel_title": user.travel_set.last().travel_title,
-                    "id": user.travel_set.last().id,
-                },
-                status=status.HTTP_201_CREATED
-            )
-        else:
+        if not travel_title:
             return Response(
                 status=status.HTTP_404_NOT_FOUND,
             )
+
+        user.travel_set.create(
+            travel_title=travel_title,
+        )
+
+        return Response(
+            data={
+                "travel_title": user.travel_set.last().travel_title,
+                "id": user.travel_set.last().id,
+            },
+            status=status.HTTP_201_CREATED
+        )
 
 
 class TravelDataCreateAPIView(APIView):
