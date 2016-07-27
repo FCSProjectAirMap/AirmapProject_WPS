@@ -14,4 +14,5 @@ urlpatterns = [
         url(r'^travel/create_travel/', TravelCreateAPIView.as_view(), name='travel_create'),
         url(r'^travel/create/', TravelDataCreateAPIView.as_view(), name='travel_create'),
         url(r'^travel/create_image/', TravelImageCreateAPIView.as_view(), name='travel_create'),
-]
+        url(r'^travel/delete/(?P<id>\d+)/', TravelDeleteAPIView.as_view(), name='travel_delete'),
+        ]
