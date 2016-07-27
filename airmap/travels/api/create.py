@@ -6,24 +6,34 @@ from travels.utils.location import get_location
 from travels.utils.timestamp import get_local_time
 
 
-class TravelDataCreateAPIView(APIView):
+class TravelCreateAPIView(APIView):
 
     def post(self, request, *args, **kwargs):
 
         travel_title = request.data.get("travel_title")
+        user = request.user
 
-        travel_title_list = [
-            travel_class.get("travel_title")
-            for travel_class
-            in request.user.travel_set.values()
-        ]
+        user.travel_set.create(
+            travel_title=travel_title,
+        )
+        return Response(
+            data={
+                "travel_title": user.travel_set.last().travel_title,
+                "id": user.travel_set.last().id,
+            },
+            status=status.HTTP_201_CREATED
+        )
 
-        if travel:
-            pass
-        else:
-            travel = request.user.travel_set.create(
-                travel_title=travel_title,
-            )
+
+class TravelDataCreateAPIView(APIView):
+
+    def post(self, request, *args, **kwargs):
+
+        id = request.data.get("id")
+
+        travel = request.user.travel_set.get(
+                id=id,
+        )
 
         image_metadatas = request.data.get("image_metadatas")
         username = request.user.email.split("@")
@@ -51,7 +61,7 @@ class TravelDataCreateAPIView(APIView):
             )
 
         return Response(
-            status=status.HTTP_200_OK,
+            status=status.HTTP_201_CREATED,
         )
 
 
@@ -67,5 +77,5 @@ class TravelImageCreateAPIView(APIView):
 
         travel_image.save()
         return Response(
-            status=status.HTTP_200_OK,
+            status=status.HTTP_201_CREATED,
         )
