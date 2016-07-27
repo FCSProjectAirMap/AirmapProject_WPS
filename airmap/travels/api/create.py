@@ -27,7 +27,7 @@ class TravelCreateAPIView(APIView):
                 "travel_title": user.travel_set.last().travel_title,
                 "id": user.travel_set.last().id,
             },
-            status=status.HTTP_201_CREATED
+            status=status.HTTP_201_CREATED,
         )
 
 
