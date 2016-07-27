@@ -21,9 +21,9 @@ JWT_AUTH = {
     'JWT_SECRET_KEY': os.environ.get('DJANGO_PROJECT_SECRET_KEY'),
     'JWT_ALGORITHM': 'HS256',
     'JWT_VERIFY': True,
-    'JWT_VERIFY_EXPIRATION': False,
+    'JWT_VERIFY_EXPIRATION': True,
     'JWT_LEEWAY': 0,
-    'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=3000),
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=3600),
     'JWT_AUDIENCE': None,
     'JWT_ISSUER': None,
 
