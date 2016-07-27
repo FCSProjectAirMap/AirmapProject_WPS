@@ -26,7 +26,6 @@ class TravelCreateAPIView(APIView):
             )
         else:
             return Response(
-                data={},
                 status=status.HTTP_404_NOT_FOUND,
             )
 
