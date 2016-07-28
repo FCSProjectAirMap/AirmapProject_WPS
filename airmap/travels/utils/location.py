@@ -13,19 +13,31 @@ def get_location(latitude, longitude):
         longitude=longitude,
     ))
 
-    if len(location) > 1:
-        address = location[0].address
-        address_list = address.split(",")
-        country = address_list[-1]
-        city = address_list[-2]
-    elif len(location) == 1:
-        address == location[0].address
-        address_list = address.split(",")
-        country = address_list[-1]
-        city = CITY_NULL_MESSAGE
-    else:
-        country = COUNTRY_NULL_MESSAGE
-        city = CITY_NULL_MESSAGE
+    if not location:
+        result = {
+            "country": None,
+            "city": None,
+        }
+        return result
+
+    elements = location[0].raw.get("address_components")
+
+    address_components = [
+        {
+            element.get("types")[0]: element.get("long_name"),
+        }
+        for element
+        in elements
+    ]
+    address_dict = {}
+    for address_component in address_components:
+        for key, value in address_component.items():
+            address_dict[key] = value
+
+    if address_dict.get("locality"):
+        city = address_dict.get("locality")
+    city = address_dict.get("administrative_area_level_1")
+    country = address_dict.get("country")
 
     result = {
         "country": country,

@@ -40,9 +40,13 @@ class TravelImageData(models.Model):
     )
     country = models.CharField(
         max_length=256,
+        blank=True,
+        null=True,
     )
     city = models.CharField(
         max_length=256,
+        blank=True,
+        null=True,
     )
     timestamp = models.CharField(
         max_length=256,
