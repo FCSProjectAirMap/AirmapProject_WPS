@@ -9,4 +9,6 @@ class TravelListSerializer(serializers.ModelSerializer):
         fields = [
                 "travel_title",
                 "id",
+                "created_at",
+                "updated_at",
                 ]
