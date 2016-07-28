@@ -67,7 +67,7 @@ class TravelDataCreateAPIView(APIView):
 
             created_date = get_local_time(timestamp)
 
-            image_name = username[0] + "_" + timestamp + ".jpeg"
+            image_name = username[0] + "_" + id + "_" + timestamp + ".jpeg"
 
             metadata = travel.travelimagedata_set.create(
                 user=request.user,
