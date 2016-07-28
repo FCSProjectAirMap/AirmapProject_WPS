@@ -37,11 +37,23 @@ class TravelDataCreateAPIView(APIView):
 
         id = request.data.get("id")
 
+        if not id:
+            return Response(
+                status=status.HTTP_404_NOT_FOUND,
+            )
+
         travel = request.user.travel_set.get(
                 id=id,
         )
 
         image_metadatas = request.data.get("image_metadatas")
+
+        if len(travel.travelimagedata_set.all()) + len(image_metadatas) > 30\
+                or len(image_metadatas) > 10:
+            return Response(
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
         username = request.user.email.split("@")
 
         for image_metadata in image_metadatas:
@@ -53,9 +65,9 @@ class TravelDataCreateAPIView(APIView):
             country = address.get("country")
             city = address.get("city")
 
-            created_date = get_local_time(latitude, longitude, timestamp)
+            created_date = get_local_time(timestamp)
 
-            image_name = username[0] + "_" + travel_title + "_" + timestamp + ".jpeg"
+            image_name = username[0] + "_" + timestamp + ".jpeg"
 
             metadata = travel.travelimagedata_set.create(
                 user=request.user,
@@ -64,6 +76,8 @@ class TravelDataCreateAPIView(APIView):
                 timestamp=timestamp,
                 created_date=created_date,
                 travel_image_name=image_name,
+                country=country,
+                city=city,
             )
 
         return Response(
@@ -77,9 +91,14 @@ class TravelImageCreateAPIView(APIView):
 
         image = request.FILES.get("image_data")
 
+        if not image:
+            return Response(
+                status=status.HTTP_404_NOT_FOUND,
+            )
+
         travel_image = request.user.travelimagedata_set.get(travel_image_name=image.name)
 
-        travel_image.image = image
+        travel_image.travel_image = image
 
         travel_image.save()
         return Response(
