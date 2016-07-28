@@ -18,8 +18,9 @@ def set_filename(now, instance, filename):
 def user_directory_path(instance, filename):
     now = datetime.datetime.now()
 
-    path = "image/{username}/{filename}".format(
-        username=instance.user.email.split("@")[0],
+    path = "image/{username}/{travel_title}/{filename}".format(
+        username=instance.user.email,
+        travel_title=instance.travel.travel_title,
         filename=set_filename(now, instance, filename),
     )
 
