@@ -1,0 +1,5 @@
+-r production.txt
+django-debug-toolbar
+django-extensions
+pep8
+ipython[all]
