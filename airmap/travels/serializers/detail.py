@@ -13,5 +13,7 @@ class TravelDetailSerializer(serializers.ModelSerializer):
                 "country",
                 "city",
                 "timestamp",
-                "image",
+                "travel_image",
+                "created_at",
+                "updated_at",
                 ]
