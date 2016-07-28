@@ -1,15 +1,17 @@
 from django.conf.urls import url, include
 from django.contrib import admin
 
-from users.views import *
+from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token
 
+from users.views import *
+from users.api import *
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
 
-    url(r'^signup/', SignupView.as_view(), name="signup"),
-    url(r'^login/', LoginView.as_view(), name="login"),
-    url(r'^logout/', LogoutView.as_view(), name="logout"),
+    url(r'^signup/', SignupApi.as_view(), name='signup'),
+    url(r'^login/', obtain_jwt_token),
+    url(r'^refresh/', refresh_jwt_token),
 
-    url(r'^api/', include("airmap.urls.api", namespace="api")),
+    url(r'^travel/', include("airmap.urls.travel", namespace="travel")),
     ]
